@@ -26,9 +26,9 @@ func main() {
 	sc := serial.OpenSerial(util.GetEnv("SERIAL", ""))
 	go sc.Read()
 
-	vin := pid.GetVinInstance()
-	speed := pid.GetSpeedInstance()
-	rpm := pid.GetRpmInstance()
+	vin, _ := sc.FindPid(&pid.Vin{})
+	rpm, _ := sc.FindPid(&pid.Rpm{})
+	speed, _ := sc.FindPid(&pid.Speed{})
 
 	_ = sc.AskPid(vin)
 	for {

@@ -13,7 +13,7 @@ import (
 
 func (sc *serialConnection) Read() {
 	for {
-		buf := make([]byte, 1024)
+		buf := make([]byte, 128)
 		_, err := sc.p.Read(buf)
 		start := time.Now()
 		if err == nil {
@@ -35,7 +35,7 @@ func (sc *serialConnection) Read() {
 			}
 
 			if instruction != "" {
-				_, res, err := parse(instruction)
+				_, res, err := sc.parse(instruction)
 				logrus.Debugf("%s resulted in %s took %s\n", instruction, res, time.Since(start))
 				if err != nil {
 					logrus.Error(err)
@@ -46,9 +46,9 @@ func (sc *serialConnection) Read() {
 }
 
 // parse Read a hex string, get the pid concerned and set it's value
-func parse(str string) (pid.Pid, string, error) {
+func (sc *serialConnection) parse(str string) (pid.Pid, string, error) {
 	strSplit := util.SplitSize(str, 2)
-	pidClass, err := getPid(strSplit)
+	pidClass, err := sc.getPidFromString(strSplit)
 	if err != nil {
 		return nil, "", err
 	}
@@ -59,36 +59,17 @@ func parse(str string) (pid.Pid, string, error) {
 	return pidClass, resp, nil
 }
 
-// getPid returns the Pid according to serial response
+// getPidFromString returns the Pid according to serial response
 // We can get the correct service thanks to the response sent by the OBD
 // The first two bytes sent in response are the service + 0x40 and the Pid
 // So depending on the service and the pid received we can return the correct Pid instance
-func getPid(strSplit []string) (pid.Pid, error) {
+func (sc *serialConnection) getPidFromString(strSplit []string) (pid.Pid, error) {
 	if len(strSplit) >= 2 {
 		mode, modeErr := strconv.ParseInt(strSplit[0], 16, 64)
 		requestPid, pidErr := strconv.ParseInt(strSplit[1], 16, 64)
 		if modeErr == nil && pidErr == nil {
 			mode = mode - 0x40
-			var pidClass pid.Pid = nil
-			switch mode {
-			case 1:
-				switch requestPid {
-				case 12:
-					pidClass = pid.GetRpmInstance()
-				case 13:
-					pidClass = pid.GetSpeedInstance()
-				}
-
-			case 9:
-				switch requestPid {
-				case 2:
-					pidClass = pid.GetVinInstance()
-				}
-			}
-			if pidClass == nil {
-				return nil, errors.New(fmt.Sprintf("PID %d for mode %d not supported", requestPid, mode))
-			}
-			return pidClass, nil
+			return sc.GetPid(int(mode), int(requestPid))
 		}
 
 	}
