@@ -15,6 +15,7 @@ type Vin struct {
 func (vin *Vin) Convert(args []string) (string, error) {
 	res, err := hex.DecodeString(strings.Join(args, ""))
 	vin.lastValue = string(res)
+
 	return string(res), err
 }
 

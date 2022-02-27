@@ -36,5 +36,4 @@ func main() {
 		_ = sc.AskPid(speed)
 		time.Sleep(100 * time.Millisecond)
 	}
-
 }

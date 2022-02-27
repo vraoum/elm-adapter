@@ -67,11 +67,12 @@ func (sc *serialConnection) getPidFromString(strSplit []string) (pid.Pid, error)
 	if len(strSplit) >= 2 {
 		mode, modeErr := strconv.ParseInt(strSplit[0], 16, 64)
 		requestPid, pidErr := strconv.ParseInt(strSplit[1], 16, 64)
+
 		if modeErr == nil && pidErr == nil {
 			mode = mode - 0x40
 			return sc.GetPid(int(mode), int(requestPid))
 		}
-
 	}
+
 	return nil, errors.New(fmt.Sprintf("Malformated string %s", strings.Join(strSplit, " ")))
 }

@@ -18,12 +18,15 @@ func (rpm *Rpm) Convert(args []string) (string, error) {
 	if len(args) == 2 {
 		a, decErr1 := strconv.ParseInt(args[0], 16, 64)
 		b, decErr2 := strconv.ParseInt(args[1], 16, 64)
+
 		if decErr1 == nil && decErr2 == nil {
 			res := strconv.FormatInt((256*a+b)/4, 10)
 			rpm.lastValue = res
+
 			return res, nil
 		}
 	}
+
 	return "", errors.New(fmt.Sprintf("Error while parsing with args %v", args))
 }
 

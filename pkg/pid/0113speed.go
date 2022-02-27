@@ -17,11 +17,14 @@ type Speed struct {
 // the max Speed that this method can return is 255
 func (speed *Speed) Convert(args []string) (string, error) {
 	a, decErr1 := strconv.ParseInt(args[0], 16, 64)
+
 	if decErr1 == nil {
 		res := strconv.FormatInt(a, 10)
 		speed.lastValue = res
+
 		return res, nil
 	}
+
 	return "", errors.New(fmt.Sprintf("Error while parsing with args %v", args))
 }
 
