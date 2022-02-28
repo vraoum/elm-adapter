@@ -11,6 +11,7 @@ func NewService(serviceNumber int) *Service {
 
 	switch serviceNumber {
 	case 0x01:
+		s.Pids[0x04] = &EngineLoad{}
 		s.Pids[0x0C] = &Rpm{}
 		s.Pids[0x0D] = &Speed{}
 

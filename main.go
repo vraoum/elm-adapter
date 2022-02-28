@@ -27,13 +27,15 @@ func main() {
 	go sc.Read()
 
 	vin, _ := sc.FindPid(&pid.Vin{})
+	el, _ := sc.FindPid(&pid.EngineLoad{})
 	rpm, _ := sc.FindPid(&pid.Rpm{})
 	speed, _ := sc.FindPid(&pid.Speed{})
 
 	_ = sc.AskPid(vin)
 	for {
+		_ = sc.AskPid(el)
 		_ = sc.AskPid(rpm)
 		_ = sc.AskPid(speed)
-		time.Sleep(100 * time.Millisecond)
+		time.Sleep(1000 * time.Millisecond)
 	}
 }

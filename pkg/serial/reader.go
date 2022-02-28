@@ -35,10 +35,11 @@ func (sc *serialConnection) Read() {
 			}
 
 			if instruction != "" {
-				_, res, err := sc.parse(instruction)
-				logrus.Debugf("%s resulted in %s took %s\n", instruction, res, time.Since(start))
+				foundPid, res, err := sc.parse(instruction)
 				if err != nil {
 					logrus.Error(err)
+				} else {
+					logrus.Debugf("%s resulted in %s%s took %s\n", instruction, res, foundPid.Unit(), time.Since(start))
 				}
 			}
 		}
