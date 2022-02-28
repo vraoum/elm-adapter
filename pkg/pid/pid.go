@@ -8,4 +8,5 @@ type Pid interface {
 	GetStringPid() string                  // GetStringPid Format GetPid as string in the format: %02x
 	GetService() int                       // GetService Returns the service hex as integer
 	GetStringService() string              // GetStringService Format GetService as string in the format: %02x
+	GetIsSupported() bool                  // GetIsSupported Returns whether the pid is supported or not
 }

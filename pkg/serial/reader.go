@@ -11,7 +11,7 @@ import (
 	"time"
 )
 
-func (sc *serialConnection) Read() {
+func (sc *Connection) Read() {
 	for {
 		buf := make([]byte, 128)
 		_, err := sc.p.Read(buf)
@@ -36,9 +36,7 @@ func (sc *serialConnection) Read() {
 
 			if instruction != "" {
 				foundPid, res, err := sc.parse(instruction)
-				if err != nil {
-					logrus.Error(err)
-				} else {
+				if err == nil {
 					logrus.Debugf("%s resulted in %s%s took %s\n", instruction, res, foundPid.Unit(), time.Since(start))
 				}
 			}
@@ -47,7 +45,7 @@ func (sc *serialConnection) Read() {
 }
 
 // parse Read a hex string, get the pid concerned and set it's value
-func (sc *serialConnection) parse(str string) (pid.Pid, string, error) {
+func (sc *Connection) parse(str string) (pid.Pid, string, error) {
 	strSplit := util.SplitSize(str, 2)
 	pidClass, err := sc.getPidFromString(strSplit)
 	if err != nil {
@@ -64,7 +62,7 @@ func (sc *serialConnection) parse(str string) (pid.Pid, string, error) {
 // We can get the correct service thanks to the response sent by the OBD
 // The first two bytes sent in response are the service + 0x40 and the Pid
 // So depending on the service and the pid received we can return the correct Pid instance
-func (sc *serialConnection) getPidFromString(strSplit []string) (pid.Pid, error) {
+func (sc *Connection) getPidFromString(strSplit []string) (pid.Pid, error) {
 	if len(strSplit) >= 2 {
 		mode, modeErr := strconv.ParseInt(strSplit[0], 16, 64)
 		requestPid, pidErr := strconv.ParseInt(strSplit[1], 16, 64)

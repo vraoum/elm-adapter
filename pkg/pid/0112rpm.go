@@ -9,7 +9,8 @@ import (
 
 // Rpm Define the amount of rotation the motor make per minutes
 type Rpm struct {
-	lastValue string // lastValue Last value received
+	lastValue   string // lastValue Last value received
+	IsSupported bool
 }
 
 // Convert Transform a list of arguments to a value and sets the last value.
@@ -28,7 +29,7 @@ func (rpm *Rpm) Convert(args []string) (string, error) {
 		}
 	}
 
-	return "", errors.New(fmt.Sprintf("Error while parsing with args %v", args))
+	return "", errors.New(fmt.Sprintf("01 12 RPM: Error while parsing with args %v", args))
 }
 
 // GetLastValue Returns the last value received
@@ -59,4 +60,9 @@ func (rpm *Rpm) GetStringPid() string {
 // GetStringService Format GetService as string in the format: %02x
 func (rpm *Rpm) GetStringService() string {
 	return strings.ToUpper(fmt.Sprintf("%02x", rpm.GetService()))
+}
+
+// GetIsSupported Returns whether the pid is supported or not
+func (rpm *Rpm) GetIsSupported() bool {
+	return rpm.IsSupported
 }

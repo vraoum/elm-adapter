@@ -9,7 +9,8 @@ import (
 
 // Speed Define the speed that car currently have
 type Speed struct {
-	lastValue string // lastValue Last value received
+	lastValue   string // lastValue Last value received
+	IsSupported bool
 }
 
 // Convert Transform a list of arguments to a value and sets the last value.
@@ -26,7 +27,7 @@ func (speed *Speed) Convert(args []string) (string, error) {
 		return res, nil
 	}
 
-	return "", errors.New(fmt.Sprintf("Error while parsing with args %v", args))
+	return "", errors.New(fmt.Sprintf("01 13 Speed: Error while parsing with args %v", args))
 }
 
 // GetLastValue Returns the last value received
@@ -57,4 +58,9 @@ func (speed *Speed) GetStringPid() string {
 // GetStringService Format GetService as string in the format: %02x
 func (speed *Speed) GetStringService() string {
 	return strings.ToUpper(fmt.Sprintf("%02x", speed.GetService()))
+}
+
+// GetIsSupported Returns whether the pid is supported or not
+func (speed *Speed) GetIsSupported() bool {
+	return speed.IsSupported
 }

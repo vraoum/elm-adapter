@@ -24,20 +24,21 @@ func main() {
 	}
 
 	sc := serial.OpenSerial(util.GetEnv("SERIAL", ""))
-	go sc.Read()
 
 	vin, _ := sc.FindPid(&pid.Vin{})
 	el, _ := sc.FindPid(&pid.EngineLoad{})
 	ect, _ := sc.FindPid(&pid.EngineCoolantTemperature{})
+	fp, _ := sc.FindPid(&pid.FuelPressure{})
 	rpm, _ := sc.FindPid(&pid.Rpm{})
 	speed, _ := sc.FindPid(&pid.Speed{})
 
 	_ = sc.AskPid(vin)
 	for {
+		time.Sleep(1000 * time.Millisecond)
 		_ = sc.AskPid(el)
 		_ = sc.AskPid(ect)
+		_ = sc.AskPid(fp)
 		_ = sc.AskPid(rpm)
 		_ = sc.AskPid(speed)
-		time.Sleep(1000 * time.Millisecond)
 	}
 }

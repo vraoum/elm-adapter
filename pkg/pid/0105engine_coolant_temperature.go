@@ -9,7 +9,8 @@ import (
 
 // EngineCoolantTemperature Define the temperature of the coolant used to cold the motor
 type EngineCoolantTemperature struct {
-	lastValue string // lastValue Last value received
+	lastValue   string // lastValue Last value received
+	IsSupported bool
 }
 
 // Convert Transform a list of arguments to a value and sets the last value.
@@ -28,7 +29,7 @@ func (ect *EngineCoolantTemperature) Convert(args []string) (string, error) {
 		}
 	}
 
-	return "", errors.New(fmt.Sprintf("Error while parsing with args %v", args))
+	return "", errors.New(fmt.Sprintf("01 05 Engine coolant temperature: Error while parsing with args %v", args))
 }
 
 // GetLastValue Returns the last value received
@@ -59,4 +60,9 @@ func (ect *EngineCoolantTemperature) GetStringPid() string {
 // GetStringService Format GetService as string in the format: %02x
 func (ect *EngineCoolantTemperature) GetStringService() string {
 	return strings.ToUpper(fmt.Sprintf("%02x", ect.GetService()))
+}
+
+// GetIsSupported Returns whether the pid is supported or not
+func (ect *EngineCoolantTemperature) GetIsSupported() bool {
+	return ect.IsSupported
 }

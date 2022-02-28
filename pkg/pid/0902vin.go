@@ -8,7 +8,8 @@ import (
 
 // Vin Unique identifier for the vehicle
 type Vin struct {
-	lastValue string // lastValue Last value received
+	lastValue   string // lastValue Last value received
+	isSupported bool
 }
 
 // Convert Transform a list of arguments to a value and sets the last value.
@@ -48,4 +49,9 @@ func (vin *Vin) GetStringPid() string {
 // GetStringService Format GetService as string in the format: %02x
 func (vin *Vin) GetStringService() string {
 	return strings.ToUpper(fmt.Sprintf("%02x", vin.GetService()))
+}
+
+// GetIsSupported Returns whether the pid is supported or not
+func (vin *Vin) GetIsSupported() bool {
+	return vin.isSupported
 }

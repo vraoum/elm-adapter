@@ -10,7 +10,8 @@ import (
 // EngineLoad The engine load describe the amount of power being made by the engine compare to the maximum amount of power
 // it can make at the same rpm
 type EngineLoad struct {
-	lastValue string // lastValue Last value received
+	lastValue   string // lastValue Last value received
+	IsSupported bool
 }
 
 // Convert Transform a list of arguments to a value and sets the last value.
@@ -28,7 +29,7 @@ func (el *EngineLoad) Convert(args []string) (string, error) {
 		}
 	}
 
-	return "", errors.New(fmt.Sprintf("Error while parsing with args %v", args))
+	return "", errors.New(fmt.Sprintf("01 04 Engine load: Error while parsing with args %v", args))
 }
 
 // GetLastValue Returns the last value received
@@ -59,4 +60,9 @@ func (el *EngineLoad) GetStringPid() string {
 // GetStringService Format GetService as string in the format: %02x
 func (el *EngineLoad) GetStringService() string {
 	return strings.ToUpper(fmt.Sprintf("%02x", el.GetService()))
+}
+
+// GetIsSupported Returns whether the pid is supported or not
+func (el *EngineLoad) GetIsSupported() bool {
+	return el.IsSupported
 }
