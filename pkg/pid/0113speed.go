@@ -7,6 +7,7 @@ import (
 	"strings"
 )
 
+// Speed Define the speed that car currently have
 type Speed struct {
 	lastValue string // lastValue Last value received
 }

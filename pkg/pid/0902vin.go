@@ -6,6 +6,7 @@ import (
 	"strings"
 )
 
+// Vin Unique identifier for the vehicle
 type Vin struct {
 	lastValue string // lastValue Last value received
 }

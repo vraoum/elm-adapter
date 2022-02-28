@@ -7,6 +7,7 @@ import (
 	"strings"
 )
 
+// Rpm Define the amount of rotation the motor make per minutes
 type Rpm struct {
 	lastValue string // lastValue Last value received
 }
