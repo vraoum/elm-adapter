@@ -39,7 +39,7 @@ func (fp *FuelPressure) GetLastValue() string {
 
 // Unit Returns the unit of the pid, for the FuelPressure the unit is kPa as kilopascal
 func (fp *FuelPressure) Unit() string {
-	return "°C"
+	return "kPa"
 }
 
 // GetPid Returns the pid hex as integer

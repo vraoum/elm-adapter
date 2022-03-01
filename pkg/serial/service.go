@@ -31,6 +31,7 @@ func (s *Service) Initialize(sc *Connection) {
 		s.Pids[0x04] = &pid.EngineLoad{IsSupported: s0120.GetLastValue()[3] == 49}
 		s.Pids[0x05] = &pid.EngineCoolantTemperature{IsSupported: s0120.GetLastValue()[4] == 49}
 		s.Pids[0x0A] = &pid.FuelPressure{IsSupported: s0120.GetLastValue()[9] == 49}
+		s.Pids[0x0B] = &pid.IntakeManifoldAbsolutePressure{IsSupported: s0120.GetLastValue()[10] == 49}
 		s.Pids[0x0C] = &pid.Rpm{IsSupported: s0120.GetLastValue()[11] == 49}
 		s.Pids[0x0D] = &pid.Speed{IsSupported: s0120.GetLastValue()[12] == 49}
 

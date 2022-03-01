@@ -29,6 +29,7 @@ func main() {
 	el, _ := sc.FindPid(&pid.EngineLoad{})
 	ect, _ := sc.FindPid(&pid.EngineCoolantTemperature{})
 	fp, _ := sc.FindPid(&pid.FuelPressure{})
+	imap, _ := sc.FindPid(&pid.IntakeManifoldAbsolutePressure{})
 	rpm, _ := sc.FindPid(&pid.Rpm{})
 	speed, _ := sc.FindPid(&pid.Speed{})
 
@@ -38,6 +39,7 @@ func main() {
 		_ = sc.AskPid(el)
 		_ = sc.AskPid(ect)
 		_ = sc.AskPid(fp)
+		_ = sc.AskPid(imap)
 		_ = sc.AskPid(rpm)
 		_ = sc.AskPid(speed)
 	}
