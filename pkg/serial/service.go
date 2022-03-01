@@ -37,6 +37,7 @@ func (s *Service) Initialize(sc *Connection) {
 		s.Pids[0x0C] = &pid.Rpm{IsSupported: s0120.GetLastValue()[11] == 49}
 		s.Pids[0x0D] = &pid.Speed{IsSupported: s0120.GetLastValue()[12] == 49}
 		s.Pids[0x0E] = &pid.TimingAdvance{IsSupported: s0120.GetLastValue()[13] == 49}
+		s.Pids[0x0F] = &pid.IntakeAirTemperature{IsSupported: s0120.GetLastValue()[14] == 49}
 
 	case 0x09:
 		s.Pids[0x02] = &pid.Vin{}

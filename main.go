@@ -33,6 +33,7 @@ func main() {
 	rpm, _ := sc.FindPid(&pid.Rpm{})
 	speed, _ := sc.FindPid(&pid.Speed{})
 	ta, _ := sc.FindPid(&pid.TimingAdvance{})
+	iat, _ := sc.FindPid(&pid.IntakeAirTemperature{})
 
 	_ = sc.AskPid(vin)
 	for {
@@ -44,5 +45,6 @@ func main() {
 		_ = sc.AskPid(rpm)
 		_ = sc.AskPid(speed)
 		_ = sc.AskPid(ta)
+		_ = sc.AskPid(iat)
 	}
 }
