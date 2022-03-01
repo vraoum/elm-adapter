@@ -29,7 +29,7 @@ func (iat *IntakeAirTemperature) Convert(args []string) (string, error) {
 		}
 	}
 
-	return "", errors.New(fmt.Sprintf("01 05 Engine coolant temperature: Error while parsing with args %v", args))
+	return "", errors.New(fmt.Sprintf("01 15 Intake air temperature: Error while parsing with args %v", args))
 }
 
 // GetLastValue Returns the last value received

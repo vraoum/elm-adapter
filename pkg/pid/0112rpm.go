@@ -16,6 +16,7 @@ type Rpm struct {
 // Convert Transform a list of arguments to a value and sets the last value.
 // In order to get the Rpm value, we must apply the following formula: (256 * a + b)/4
 // Where a and b are the first and second parameters given
+// the range of Rpm that this method can return is 0 to 16383
 func (rpm *Rpm) Convert(args []string) (string, error) {
 	if len(args) == 2 {
 		a, decErr1 := strconv.ParseInt(args[0], 16, 64)
