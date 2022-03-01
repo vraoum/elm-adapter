@@ -27,7 +27,7 @@ func (imap *IntakeManifoldAbsolutePressure) Convert(args []string) (string, erro
 		}
 	}
 
-	return "", errors.New(fmt.Sprintf("01 10 Fuel pressure: Error while parsing with args %v", args))
+	return "", errors.New(fmt.Sprintf("01 11 Intake manifold absolute pressure: Error while parsing with args %v", args))
 }
 
 // GetLastValue Returns the last value received

@@ -7,17 +7,17 @@ import (
 	"strings"
 )
 
-// Supported0120 The engine load describe the amount of power being made by the engine compare to the maximum amount of power
+// Supported0132 The engine load describe the amount of power being made by the engine compare to the maximum amount of power
 // it can make at the same rpm
-type Supported0120 struct {
+type Supported0132 struct {
 	lastValue   string // lastValue Last value received
 	IsSupported bool
 }
 
 // Convert Transform a list of arguments to a value and sets the last value.
-// In order to get the Supported0120 value, we must apply the following formula: (100 * a) / 255
+// In order to get the Supported0132 value, we must apply the following formula: (100 * a) / 255
 // Where a is the first parameters given
-func (s *Supported0120) Convert(args []string) (string, error) {
+func (s *Supported0132) Convert(args []string) (string, error) {
 	a, err := strconv.ParseInt(strings.Join(args, ""), 16, 64)
 	if err == nil {
 		res := strconv.FormatInt(a, 2)
@@ -29,36 +29,36 @@ func (s *Supported0120) Convert(args []string) (string, error) {
 }
 
 // GetLastValue Returns the last value received
-func (s *Supported0120) GetLastValue() string {
+func (s *Supported0132) GetLastValue() string {
 	return s.lastValue
 }
 
-// Unit Returns the unit of the pid, for the Supported0120 the unit is percentage
-func (s *Supported0120) Unit() string {
+// Unit Returns the unit of the pid, for the Supported0132 the unit is percentage
+func (s *Supported0132) Unit() string {
 	return ""
 }
 
 // GetPid Returns the pid hex as integer
-func (s *Supported0120) GetPid() int {
+func (s *Supported0132) GetPid() int {
 	return 0x00
 }
 
 // GetService Returns the service hex as integer
-func (s *Supported0120) GetService() int {
+func (s *Supported0132) GetService() int {
 	return 0x01
 }
 
 // GetStringPid Format GetPid as string in the format: %02x
-func (s *Supported0120) GetStringPid() string {
+func (s *Supported0132) GetStringPid() string {
 	return strings.ToUpper(fmt.Sprintf("%02x", s.GetPid()))
 }
 
 // GetStringService Format GetService as string in the format: %02x
-func (s *Supported0120) GetStringService() string {
+func (s *Supported0132) GetStringService() string {
 	return strings.ToUpper(fmt.Sprintf("%02x", s.GetService()))
 }
 
 // GetIsSupported Returns whether the pid is supported or not
-func (s *Supported0120) GetIsSupported() bool {
+func (s *Supported0132) GetIsSupported() bool {
 	return s.IsSupported
 }

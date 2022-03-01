@@ -32,6 +32,7 @@ func main() {
 	imap, _ := sc.FindPid(&pid.IntakeManifoldAbsolutePressure{})
 	rpm, _ := sc.FindPid(&pid.Rpm{})
 	speed, _ := sc.FindPid(&pid.Speed{})
+	ta, _ := sc.FindPid(&pid.TimingAdvance{})
 
 	_ = sc.AskPid(vin)
 	for {
@@ -42,5 +43,6 @@ func main() {
 		_ = sc.AskPid(imap)
 		_ = sc.AskPid(rpm)
 		_ = sc.AskPid(speed)
+		_ = sc.AskPid(ta)
 	}
 }

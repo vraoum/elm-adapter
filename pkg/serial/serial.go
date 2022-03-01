@@ -30,6 +30,7 @@ func (sc *Connection) AskPid(pid pid.Pid) error {
 		logrus.Debugf("Asking pid %s %s", pid.GetStringService(), pid.GetStringPid())
 		return sc.Write(fmt.Sprintf("%s %s\r", pid.GetStringService(), pid.GetStringPid()))
 	}
+	logrus.Debugf("Asking pid %s %s that is not supported", pid.GetStringService(), pid.GetStringPid())
 	return errors.New(fmt.Sprintf("PID %s %s not supported", pid.GetStringService(), pid.GetStringPid()))
 }
 
