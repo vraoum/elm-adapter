@@ -36,6 +36,7 @@ func main() {
 	iat, _ := sc.FindPid(&pid.IntakeAirTemperature{})
 	maf, _ := sc.FindPid(&pid.MassAirFlowSensor{})
 	tp, _ := sc.FindPid(&pid.ThrottlePosition{})
+	rtses, _ := sc.FindPid(&pid.RunTimeSinceEngineStarted{})
 
 	_ = sc.AskPid(vin)
 	for {
@@ -50,5 +51,6 @@ func main() {
 		_ = sc.AskPid(iat)
 		_ = sc.AskPid(maf)
 		_ = sc.AskPid(tp)
+		_ = sc.AskPid(rtses)
 	}
 }
